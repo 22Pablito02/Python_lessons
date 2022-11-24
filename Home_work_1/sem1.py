@@ -47,15 +47,23 @@
 
 # Напишите программу, которая принимает на вход координаты двух точек и находит расстояние между ними в 2D пространстве.
 
-print("Введите координаты точки A",)
-DotAX = int(input(""))
-DotAY = int(input(""))
-print("Введите координаты точки B",)
-DotBX = int(input(""))
-DotBY = int(input(""))
+# print("Введите координаты точки A",)
+# DotAX = int(input(""))
+# DotAY = int(input(""))
+# print("Введите координаты точки B",)
+# DotBX = int(input(""))
+# DotBY = int(input(""))
 
-SegmentX = DotAX - DotBX
-SegmentY = DotAY - DotBY
+# SegmentX = DotAX - DotBX
+# SegmentY = DotAY - DotBY
 
-edge = round((SegmentX ** 2 + SegmentY ** 2) ** 0.5, 2)
-print(edge)
+# edge = round((SegmentX ** 2 + SegmentY ** 2) ** 0.5, 2)
+# print(edge)
+
+# Напишите программу для. проверки истинности утверждения ¬(X ⋁ Y ⋁ Z) = ¬X ⋀ ¬Y ⋀ ¬Z для всех значений предикат.
+
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            print(x, y, z , end = " ")
+            print(not (x or y or z) == (not x and not y and not z))
