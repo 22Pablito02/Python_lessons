@@ -40,6 +40,8 @@
 # Задайте список из N элементов, заполненных числами из промежутка [-N, N]. Найдите произведение элементов на указанных позициях. 
 # Позиции хранятся в файле file.txt в одной строке одно число.
 
+import os
+import sys
 print("Введите число: ", end = "")
 n = int(input(""))
 sheet = []
@@ -49,7 +51,7 @@ for i in range(-n,n+1):
 print("Промежуток значений:", *sheet, sep = " ")
 
 FileSheet = []
-f = open("C:/Users/Pavel/Desktop/Учеба/Курсы/Python_lessons/Home_work_2/text.txt")
+f = open(os.path.join(os.path.dirname(sys.argv[0]),'text.txt'), 'r')
 a = f.read()
 for i in range(len(a)):
     if a[i].isdigit():
@@ -64,3 +66,5 @@ for i in range(len(FileSheet)):
             break
 
 print("Ответ:", result)
+
+
