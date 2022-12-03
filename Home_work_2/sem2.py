@@ -27,12 +27,40 @@
 
 # Задайте список из n чисел последовательности $(1+\frac 1 n)^n$ и выведите на экран их сумму.
 
-import random
-n = random.randint(2,10)
-sheet = []
-sum = 0
-for i in range(1,n):
-    sum =   round((1 + 1 / i) ** i, 2)
-    sheet.append(sum)
-print(*sheet, sep = ", ")
+# import random
+# n = random.randint(2,10)
+# sheet = []
+# sum = 0
+# for i in range(1,n):
+#     sum =   round((1 + 1 / i) ** i, 2)
+#     sheet.append(sum)
+# print(*sheet, sep = ", ")
 
+
+# Задайте список из N элементов, заполненных числами из промежутка [-N, N]. Найдите произведение элементов на указанных позициях. 
+# Позиции хранятся в файле file.txt в одной строке одно число.
+
+print("Введите число: ", end = "")
+n = int(input(""))
+sheet = []
+result = 1
+for i in range(-n,n+1):
+    sheet.append(i)
+print("Промежуток значений:", *sheet, sep = " ")
+
+FileSheet = []
+f = open("C:/Users/Pavel/Desktop/Учеба/Курсы/Python_lessons/Home_work_2/text.txt")
+a = f.read()
+for i in range(len(a)):
+    if a[i].isdigit():
+        FileSheet.append(a[i])
+print("Индексы из файла:", *FileSheet, sep = " ")
+
+for i in range(len(FileSheet)):
+    temp = int(FileSheet[i])
+    for j in range(len(sheet)):
+        if j == temp:
+            result = result * sheet[j]
+            break
+
+print("Ответ:", result)
