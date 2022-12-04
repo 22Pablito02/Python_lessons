@@ -40,31 +40,48 @@
 # Задайте список из N элементов, заполненных числами из промежутка [-N, N]. Найдите произведение элементов на указанных позициях. 
 # Позиции хранятся в файле file.txt в одной строке одно число.
 
-import os
-import sys
-print("Введите число: ", end = "")
-n = int(input(""))
+# import os
+# import sys
+# print("Введите число: ", end = "")
+# n = int(input(""))
+# sheet = []
+# result = 1
+# for i in range(-n,n+1):
+#     sheet.append(i)
+# print("Промежуток значений:", *sheet, sep = " ")
+
+# FileSheet = []
+# f = open(os.path.join(os.path.dirname(sys.argv[0]),'text.txt'), 'r')
+# a = f.read()
+# for i in range(len(a)):
+#     if a[i].isdigit():
+#         FileSheet.append(a[i])
+# print("Индексы из файла:", *FileSheet, sep = " ")
+
+# for i in range(len(FileSheet)):
+#     temp = int(FileSheet[i])
+#     for j in range(len(sheet)):
+#         if j == temp:
+#             result = result * sheet[j]
+#             break
+
+# print("Ответ:", result)
+
+
+# Реализуйте алгоритм перемешивания списка
+# (shuffle использовать нельзя, другие методы из библиотеки random - можно).
+
+import random
 sheet = []
-result = 1
-for i in range(-n,n+1):
-    sheet.append(i)
-print("Промежуток значений:", *sheet, sep = " ")
+n = 10
+for i in range(n + 1):
+    sheet.append(random.randint(0,100)) 
+print(*sheet, sep = ", ")
+sheet.reverse()
 
-FileSheet = []
-f = open(os.path.join(os.path.dirname(sys.argv[0]),'text.txt'), 'r')
-a = f.read()
-for i in range(len(a)):
-    if a[i].isdigit():
-        FileSheet.append(a[i])
-print("Индексы из файла:", *FileSheet, sep = " ")
-
-for i in range(len(FileSheet)):
-    temp = int(FileSheet[i])
-    for j in range(len(sheet)):
-        if j == temp:
-            result = result * sheet[j]
-            break
-
-print("Ответ:", result)
-
+for i in range(len(sheet)):
+    temp = sheet[i]    
+    ran = random.randint(0,10)
+    sheet[ran] = temp
+print(*sheet, sep = ", ")
 
