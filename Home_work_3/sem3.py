@@ -51,16 +51,25 @@ def PrintList(sheet):
 # Напишите программу, которая найдёт разницу между максимальным и минимальным значением дробной части элементов.
 
 
-def FillListFloat(size):
-    list = []
-    for i in range(0, size):
-        list.append(round(random.uniform(0, 10), 2))
-    return list
+# def FillListFloat(size):
+#     list = []
+#     for i in range(0, size):
+#         list.append(round(random.uniform(0, 10), 2))
+#     return list
 
 
-sheet = FillListFloat(ListSize())
-PrintList(sheet)
-for i in range(0, len(sheet)):
-    sheet[i] = round(sheet[i] - int(sheet[i]), 2)
-PrintList(sheet)
-print(max(sheet) - min(sheet)) 
+# sheet = FillListFloat(ListSize())
+# PrintList(sheet)
+# for i in range(0, len(sheet)):
+#     sheet[i] = round(sheet[i] - int(sheet[i]), 2)
+# PrintList(sheet)
+# print(max(sheet) - min(sheet)) 
+
+
+# Напишите программу, которая будет преобразовывать десятичное число в двоичное.
+
+num = int(input("Введите число:"))
+print("\nДесятичное число: ", num)
+numBin = format(num, 'b')
+print("Двоичное число: ", numBin)
+
