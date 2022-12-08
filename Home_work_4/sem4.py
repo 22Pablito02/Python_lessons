@@ -13,6 +13,14 @@ def FillList(size):
 def PrintList(sheet):
     print(*sheet, sep = ", ")
 
+# Вычислить число c заданной точностью d
+import math
+num = input("Введите значение: ")
+
+print(round(math.pi , len(num.split('.')[1])))
+
+
+
 # 2 Задайте натуральное число N. 
 # Напишите программу, которая составит список простых множителей числа N.
 
@@ -33,10 +41,9 @@ def PrintList(sheet):
 # Задайте последовательность чисел. Напишите программу, 
 # которая выведет список неповторяющихся элементов исходной последовательности.
 
-
-sheet = [1,2,3,6,45,6,32,4,4,2,1]
-res = []
-for i in range(0, len(sheet)):
-    if sheet.count(sheet[i]) == 1:
-        res.append(sheet[i])
-PrintList(res)
+# sheet = [1,2,3,6,45,6,32,4,4,2,1]
+# res = []
+# for i in range(0, len(sheet)):
+#     if sheet.count(sheet[i]) == 1:
+#         res.append(sheet[i])
+# PrintList(res)
