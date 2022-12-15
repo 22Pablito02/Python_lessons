@@ -86,7 +86,6 @@ arrView = [['1', '2', '3'],['4', '5', '6'],['7', '8', '9']]
 arrWork = [['-', '-', '-'],['-', '-', '-'],['-', '-', '-']]
 # print(*arrWork, sep = "\n")
 finish = 0
-countStep = 0
 
 def PrintMatrix():
     print("\n")
@@ -95,23 +94,32 @@ def PrintMatrix():
     print(*arrWork, sep = "\n")
     print()
 
+def GetValue(token):
+    UntiDuble = 0
+    ElNum = input(f"Введите цифру поля, куда хотите поставить {token}: ")
+    while UntiDuble != 1 or ElNum == "":
+        for i in range(0, len(arrView)):
+            if ElNum in arrView[i]: UntiDuble += 1
+        if ElNum == "": 
+            ElNum = input(f"Вы не выбрали цыфру!\nВведите цифру поля, куда хотите поставить {token}: ")
+        elif UntiDuble == 0:
+            ElNum = input(f"Такой цыфры нет!\nВведите цифру поля, куда хотите поставить {token}: ")
+    return ElNum
+
 def SettingValue(token):
     PrintMatrix()
-    ElNum = input(f"Введите цифру поля, куда хотите поставить {token}: ")
+    key = GetValue(token)
     for i in range(0, len(arrView)):
         for j in range(0, len(arrView[i])): 
-            if arrView[i][j] == ElNum:
+            if arrView[i][j] == key:
                 arrView[i][j] = " " 
                 arrWork[i][j] = token
 
-while finish != 1:
-    countStep += 1
-    SettingValue("O")
-    SettingValue("X")
-    PrintMatrix()
 
+def VictoryCheck(finish):
     for i in range(0, len(arrWork)):
         if arrWork[i].count("X") == 3 or arrWork[i].count("O") == 3:
+            PrintMatrix()
             print("Победа!")
             finish = 1
             break
@@ -126,10 +134,24 @@ while finish != 1:
                 Osum += 1
 
         if Xsum == 3 or Osum == 3:
+            PrintMatrix()
             print("Победа!")
             finish = 1
             break
 
-    if  countStep > 6 and arrWork[0][0] == arrWork[1][1] == arrWork[2][2] or arrWork[0][2] == arrWork[1][2] == arrWork[2][0]:
+    if  arrWork[0][0] == arrWork[1][1] == arrWork[2][2] != "-" or arrWork[0][2] == arrWork[1][1] == arrWork[2][0] != "-":
+        PrintMatrix()
         print("Победа!")
         finish = 1
+    return finish
+
+
+while 1:
+    SettingValue("O")
+    finish = VictoryCheck(finish)
+    if finish == 1:
+        break
+    SettingValue("X")
+    finish = VictoryCheck(finish)
+    if finish == 1:
+        break
