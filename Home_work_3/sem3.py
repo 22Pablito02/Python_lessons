@@ -68,7 +68,7 @@ def PrintList(sheet):
 
 # Напишите программу, которая будет преобразовывать десятичное число в двоичное.
 
-num = int(input("Введите число: "))
+# num = int(input("Введите число: "))
 # print("\nДесятичное число: ", num)
 # numBin = format(num, 'b')
 # print("Двоичное число: ", numBin)
@@ -86,15 +86,9 @@ num = int(input("Введите число: "))
 
 
 # Задайте число. Составьте список чисел Фибоначчи, в том числе для отрицательных индексов.
+
+num = int(input("Введите число: "))
 sheet = []
-# def fibonacci(n): 
-#     if n in (1, 2):
-#         return 1
-#     return fibonacci(n - 1) + fibonacci(n - 2)
-# sheet.append(fibonacci(num))
-# PrintList(sheet)
-
-
 fib1 = fib2 = 1
 n = int(-num)-1
 while n < 0:
