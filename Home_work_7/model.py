@@ -24,8 +24,8 @@ def write_list_txt(lst):
 
 def read_file_csv():
     lst = []
-    with open(os.path.join(os.path.dirname(sys.argv[0]),"fcsv.csv"),"r", encoding='utf-8') as r_file:
-        file_read = csv.reader(r_file, delimiter=";")
+    with open(os.path.join(os.path.dirname(sys.argv[0]),"fcsv_res.csv"),"r", encoding='utf-8') as r_file:
+        file_read = csv.reader(r_file, delimiter=",")
         for row in file_read:
             lst.append(row)
     return lst
