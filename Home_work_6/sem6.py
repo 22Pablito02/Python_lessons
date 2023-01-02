@@ -42,6 +42,21 @@ from functools import reduce
 
 # fiend_max_p(quantity_cast())
 
+<<<<<<< HEAD
+# 3.1 Задайте список из нескольких чисел. Напишите программу, которая найдёт сумму четных элементов списка.
+
+def get_list():
+    sheet = []
+    num = int(input("Введите длину списка: "))
+    for i in range(0,num):
+        sheet.append(rnd(0,10))
+    return sheet
+
+
+kek = list(filter(lambda x: not x % 2, get_list()))
+krek = [i for i in range(0, len(kek) - 1): res += kek[i]]
+print(kek)
+=======
 # 3.1 Задайте список из нескольких чисел. Напишите программу, которая найдёт сумму элементов списка, стоящих на нечётной позиции.
 
 def create_list():
@@ -52,3 +67,4 @@ def create_list():
     return sheet
 
 print(reduce(lambda x,y: x+y, filter(lambda x: not x % 2, create_list())))
+>>>>>>> 053d002cbebfe0b0fa99fc57dfacbcc3c18836e7
