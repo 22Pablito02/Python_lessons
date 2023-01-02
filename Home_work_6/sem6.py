@@ -50,5 +50,5 @@ def create_list():
     for i in range(num):
         sheet.append(rnd(0,10))
     return sheet
-    
+
 print(reduce(lambda x,y: x+y, filter(lambda x: not x % 2, create_list())))
