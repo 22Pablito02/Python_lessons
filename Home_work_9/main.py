@@ -1,4 +1,4 @@
-
+import sys, os, csv
 import logging
 from tkn import token 
 
@@ -25,7 +25,6 @@ def start(update, context):
 
 
 def get_contact(update, context):
-    import sys, os, csv
     lst = []
     with open(os.path.join(os.path.dirname(sys.argv[0]),"file.csv"),"r", encoding='utf-8') as r_file:
         file_read = csv.reader(r_file, delimiter=",")
@@ -41,6 +40,18 @@ def get_contact(update, context):
             else:
                 lool += temp[j]
         update.message.reply_text(lool)
+     
+
+# def add (update, context):
+#     update.message.reply_text("Введите Имя, Фамилию, Номер и Должность через пробел")
+
+
+def create_employee(update, context):
+    update.message.reply_text("Введите Имя, Фамилию, Номер и Должность через пробел")
+    lst = str(update.message.text).split(" ")
+    with open(os.path.join(os.path.dirname(sys.argv[0]),"file.csv"),"a", encoding='utf-8') as w_file:
+        file_writer = csv.writer(w_file, delimiter = ",", lineterminator="\r")
+        file_writer.writerow(lst)
     
 
 
@@ -64,9 +75,9 @@ def main():
     )
 
     add_handler = ConversationHandler(
-        entry_points=[CommandHandler('add', add)],
+        entry_points=[CommandHandler('add', create_employee)],
         states={
-            1: [MessageHandler(Filters.text & ~Filters.command, add)]
+            1: [MessageHandler(Filters.text & ~Filters.command, create_employee)]
         },
         fallbacks=[CommandHandler('stop', stop)]
     )
@@ -83,7 +94,7 @@ def main():
     entry_points = CommandHandler('start', start)
     dp.add_handler(entry_points)
     dp.add_handler(show_handler)
-
+    dp.add_handler(add_handler)
     updater.start_polling()
     updater.idle()
 
