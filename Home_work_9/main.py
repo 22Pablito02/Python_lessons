@@ -1,7 +1,8 @@
-import sys, os, csv
+#  env\Scripts\activate.ps1
+
+import model
 import logging
 from tkn import token 
-
 from telegram.ext import Updater, CommandHandler, ConversationHandler, MessageHandler, Filters
 
 logging.basicConfig(
@@ -9,7 +10,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-
 TOKEN = token
 
 
@@ -20,39 +20,25 @@ def start(update, context):
         "Вы можете прервать диалог, послав команду /stop.\n"
         "/show - показать всех сотрудников;\n"
         "/add - добавить сотрудника;\n"
-        "/delete - удалить сотрудника.")
+        "/delete - удалить сотрудника;\n"
+        "/update - обновить данные сотрудника.")
 
 
-
-def get_contact(update, context):
-    lst = []
-    with open(os.path.join(os.path.dirname(sys.argv[0]),"file.csv"),"r", encoding='utf-8') as r_file:
-        file_read = csv.reader(r_file, delimiter=",")
-        for row in file_read:
-            lst.append(row)
-   
-    for i in range(0, len(lst)):
-        temp = str(lst[i])    
-        lool = ""
-        for j in range(0, len(temp)):
-            if temp[j] == "'" or temp[j] == "[" or temp[j] == "]": 
-                lool += ""
-            else:
-                lool += temp[j]
-        update.message.reply_text(lool)
-     
-
-# def add (update, context):
-#     update.message.reply_text("Введите Имя, Фамилию, Номер и Должность через пробел")
-
-
-def create_employee(update, context):
+def add (update, context):
     update.message.reply_text("Введите Имя, Фамилию, Номер и Должность через пробел")
-    lst = str(update.message.text).split(" ")
-    with open(os.path.join(os.path.dirname(sys.argv[0]),"file.csv"),"a", encoding='utf-8') as w_file:
-        file_writer = csv.writer(w_file, delimiter = ",", lineterminator="\r")
-        file_writer.writerow(lst)
-    
+    return 1
+
+
+def delete (update, context):
+    update.message.reply_text("Введите номер строки контакта, кого хотите удалить")
+    return 1
+
+
+def update (update, context):
+    update.message.reply_text(
+    "Введите номер строки контакта, а также:\n"
+    "Имя, Фамилию, Номер и Должность через пробел")
+    return 1
 
 
 def stop(update, context):
@@ -67,34 +53,44 @@ def main():
     entry_points = CommandHandler('start', start)
     
     show_handler = ConversationHandler(
-        entry_points=[CommandHandler('show', get_contact)],
+        entry_points=[CommandHandler('show', model.get_contact)],
         states={
-            1: [MessageHandler(Filters.text & ~Filters.command, get_contact)]
+            1: [MessageHandler(Filters.text & ~Filters.command, model.get_contact)]
         },
         fallbacks=[CommandHandler('stop', stop)]    
     )
 
     add_handler = ConversationHandler(
-        entry_points=[CommandHandler('add', create_employee)],
+        entry_points=[CommandHandler('add', add)],
         states={
-            1: [MessageHandler(Filters.text & ~Filters.command, create_employee)]
+            1: [MessageHandler(Filters.text & ~Filters.command, model.create_employee)]
         },
         fallbacks=[CommandHandler('stop', stop)]
     )
 
-    # delete_handler = ConversationHandler(
-    #     entry_points=[CommandHandler('delete', delete)],
-    #     states={
-    #         1: [MessageHandler(Filters.text & ~Filters.command, delete)]
-    #     },
-    #     fallbacks=[CommandHandler('stop', stop)]
-    # )
+    delete_handler = ConversationHandler(
+        entry_points=[CommandHandler('delete', delete)],
+        states={
+            1: [MessageHandler(Filters.text & ~Filters.command, model.delete_employee)]
+        },
+        fallbacks=[CommandHandler('stop', stop)]
+    )
+
+    update_handler = ConversationHandler(
+        entry_points=[CommandHandler('update', update)],
+        states={
+            1: [MessageHandler(Filters.text & ~Filters.command, model.update_employee)]
+        },
+        fallbacks=[CommandHandler('stop', stop)]
+    )
 
     
     entry_points = CommandHandler('start', start)
     dp.add_handler(entry_points)
     dp.add_handler(show_handler)
     dp.add_handler(add_handler)
+    dp.add_handler(delete_handler)
+    dp.add_handler(update_handler)
     updater.start_polling()
     updater.idle()
 
