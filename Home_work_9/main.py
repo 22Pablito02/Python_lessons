@@ -21,7 +21,8 @@ def start(update, context):
         "/show - показать всех сотрудников;\n"
         "/add - добавить сотрудника;\n"
         "/delete - удалить сотрудника;\n"
-        "/update - обновить данные сотрудника.")
+        "/update - обновить данные сотрудника;\n"
+        "/find - поиск контакта.")
 
 
 def add (update, context):
@@ -46,6 +47,10 @@ def stop(update, context):
     return ConversationHandler.END
 
 
+def find(update, context):
+    update.message.reply_text("Введите имя искомого контакта")
+    return 1
+
 def main():
     updater = Updater(TOKEN)
     dp = updater.dispatcher
@@ -64,7 +69,7 @@ def main():
         entry_points=[CommandHandler('add', add)],
         states={
             1: [MessageHandler(Filters.text & ~Filters.command, model.create_employee)]
-        },
+        }, 
         fallbacks=[CommandHandler('stop', stop)]
     )
 
@@ -84,6 +89,14 @@ def main():
         fallbacks=[CommandHandler('stop', stop)]
     )
 
+    find_handler = ConversationHandler(
+        entry_points=[CommandHandler('find', find)],
+        states={
+            1: [MessageHandler(Filters.text & ~Filters.command, model.find_contact)]
+        },
+        fallbacks=[CommandHandler('stop', stop)]
+    )
+
     
     entry_points = CommandHandler('start', start)
     dp.add_handler(entry_points)
@@ -91,6 +104,7 @@ def main():
     dp.add_handler(add_handler)
     dp.add_handler(delete_handler)
     dp.add_handler(update_handler)
+    dp.add_handler(find_handler)
     updater.start_polling()
     updater.idle()
 

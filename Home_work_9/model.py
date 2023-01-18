@@ -57,3 +57,26 @@ def update_employee(update, context):
         for i in row:
             file_writer.writerow(i)
     update.message.reply_text("Пользователь изменен")
+
+
+def find_contact(update, context):
+        name = update.message.text
+        lst = []
+        with open(os.path.join(os.path.dirname(sys.argv[0]),"file.csv"),"r", encoding='utf-8') as r_file:
+                    file_read = csv.reader(r_file, delimiter=",")
+                    for row in file_read:
+                        lst.append(row)
+                
+        for i in range(0, len(lst)):
+            if lst[i][0] == name:
+                temp = str(lst[i])    
+                lool = ""
+                for j in range(0, len(temp)):
+                    if temp[j] == "'" or temp[j] == "[" or temp[j] == "]": 
+                        lool += ""
+                    else:
+                        lool += temp[j]
+                update.message.reply_text(lool)
+    
+
+
